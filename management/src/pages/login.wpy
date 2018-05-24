@@ -1,17 +1,56 @@
 <style lang="less">
+.flexinput {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+}
+.input {
+  height: 40px;
+  width: 280px;
+  margin-top: 20px;
+  border-radius: 5px;
+  background-color:	#EFEFEF
+}
+.in {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+}
+.login {
+  margin-top: 40px;
+}
 </style>
 
 <template>
   <view>
-    <text>nihao</text>
+    <form bindsubmit="formSubmit" bindreset="formReset">
+      <view class="flexinput">
+        <view class="input">
+          <input name="input" placeholder="user number" class="in" />
+        </view>
+        <view class="input">
+          <input name="input" placeholder="pass word" class="in" />
+        </view>
+        <view class="login">
+          <button type="primary" form-type="submit">登录</button>
+        </view>
+      </view>
+    </form>
   </view>
 </template>
 
 <script>
   import wepy from 'wepy'
   export default class Login extends wepy.page {
-    config = {}
+    config = {
+      navigationBarTitleText: '登录'
+    }
 
     data = {}
+
+    methods = {}
   }
 </script>

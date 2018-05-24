@@ -27,9 +27,9 @@ export default class extends wepy.app {
     ],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
+      navigationBarBackgroundColor: '#4D4545',
       navigationBarTitleText: '毕设选题管理系统',
-      navigationBarTextStyle: 'black'
+      navigationBarTextStyle: 'White'
     }
   }
 
