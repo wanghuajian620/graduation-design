@@ -32,10 +32,10 @@
           <input name="input" placeholder="user number" class="in" />
         </view>
         <view class="input">
-          <input name="input" placeholder="pass word" class="in" />
+          <input name="input" placeholder="pass word" password="true" class="in" />
         </view>
         <view class="login">
-          <button type="primary" form-type="submit">登录</button>
+          <button @tap="push" type="primary" formType="submit">登录</button>
         </view>
       </view>
     </form>
@@ -44,6 +44,7 @@
 
 <script>
   import wepy from 'wepy'
+  // import RepoList from '../libs/request'
   export default class Login extends wepy.page {
     config = {
       navigationBarTitleText: '登录'
@@ -51,6 +52,10 @@
 
     data = {}
 
-    methods = {}
+    methods = {
+      push(e) {
+        console.log(e)
+      }
+    }
   }
 </script>
