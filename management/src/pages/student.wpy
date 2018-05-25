@@ -1,0 +1,17 @@
+<style lang="less">
+</style>
+
+<template>
+  <view>
+    <text>学生</text>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+export default class Student extends wepy.page {
+  config = {
+    navigationBarTitleText: '学生选题系统'
+  }
+}
+</script>

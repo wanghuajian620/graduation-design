@@ -10,7 +10,7 @@ export const RepoList = async (res) => {
         pass: res.pass
       }
     })
-    return repo
+    return repo.data.data
   } catch (err) {
     console.error(`fetch repos error: ${JSON.stringify(err)}`)
   }

@@ -1,0 +1,17 @@
+<style lang="less">
+</style>
+
+<template>
+  <view>
+    <text>管理员</text>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+export default class Admin extends wepy.page {
+  config = {
+    navigationBarTitleText: '管理员系统'
+  }
+}
+</script>

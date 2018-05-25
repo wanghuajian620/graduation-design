@@ -1,0 +1,17 @@
+<style lang="less">
+</style>
+
+<template>
+  <view>
+    <text>老师</text>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+export default class Techer extends wepy.page {
+  config = {
+    navigationBarTitleText: '教师系统'
+  }
+}
+</script>

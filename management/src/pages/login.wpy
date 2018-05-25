@@ -29,10 +29,10 @@
     <form bindsubmit="formSubmit" bindreset="formReset">
       <view class="flexinput">
         <view class="input">
-          <input name="input" placeholder="user number" class="in" />
+          <input name="input" type="number" placeholder="user number" bindinput="listenerPhoneInput" class="in" />
         </view>
         <view class="input">
-          <input name="input" placeholder="pass word" password="true" class="in" />
+          <input name="input" placeholder="pass word" password="true" bindinput="listenerPasswordInput" class="in" />
         </view>
         <view class="login">
           <button @tap="push" type="primary" formType="submit">登录</button>
@@ -44,17 +44,52 @@
 
 <script>
   import wepy from 'wepy'
-  // import RepoList from '../libs/request'
   export default class Login extends wepy.page {
     config = {
       navigationBarTitleText: '登录'
     }
 
-    data = {}
+    data = {
+      name: '',
+      password: ''
+    }
 
     methods = {
-      push(e) {
-        console.log(e)
+      listenerPhoneInput(e) {
+        this.data.name = e.detail.value
+      },
+      listenerPasswordInput(e) {
+        this.data.password = e.detail.value
+      },
+      push() {
+        console.log('手机号为: ', this.data.name)
+        console.log('密码为: ', this.data.password)
+        wepy.request({
+          url: 'http://192.168.0.105:8080/graduation/user/login',
+          method: 'POST',
+          data: {
+            name: this.data.name,
+            password: this.data.password
+          },
+          success(res) {
+            console.log(res, 'res是啥')
+            if (res.data.power === 1) {
+              wepy.navigateTo({
+                url: './student'
+              })
+            }
+            if (res.data.power === 2) {
+              wepy.navigateTo({
+                url: './techer'
+              })
+            }
+            if (res.data.power === 3) {
+              wepy.navigateTo({
+                url: './admin'
+              })
+            }
+          }
+        })
       }
     }
   }
