@@ -1,0 +1,17 @@
+<style lang="less">
+</style>
+
+<template>
+  <view>
+    <text></text>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class Thesis extends wepy.component {
+    props = {
+      item: Object
+    }
+  }
+</script>

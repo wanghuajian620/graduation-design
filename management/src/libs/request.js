@@ -1,14 +1,10 @@
 import wepy from 'wepy'
 
-export const RepoList = async (res) => {
+export const RepoList = async () => {
   try {
     const repo = await wepy.request({
       url: '',
-      method: 'POST',
-      data: {
-        name: res.name,
-        pass: res.pass
-      }
+      method: 'GET'
     })
     return repo.data.data
   } catch (err) {

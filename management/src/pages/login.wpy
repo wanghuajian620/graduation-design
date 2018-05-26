@@ -62,8 +62,6 @@
         this.data.password = e.detail.value
       },
       push() {
-        console.log('手机号为: ', this.data.name)
-        console.log('密码为: ', this.data.password)
         wepy.request({
           url: 'http://192.168.0.105:8080/graduation/user/login',
           method: 'POST',
