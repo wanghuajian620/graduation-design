@@ -66,14 +66,13 @@
       },
       push() {
         wepy.request({
-          url: 'http://192.168.0.105:8080/graduation/user/login',
+          url: 'http://192.168.0.106:8080/graduation/user/login',
           method: 'POST',
           data: {
             name: this.data.name,
             password: this.data.password
           },
           success(res) {
-            console.log(res, 'res是啥')
             if (res.data.power === 1) {
               wepy.navigateTo({
                 url: './student'

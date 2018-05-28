@@ -1,9 +1,36 @@
 <style lang="less">
+.tab {
+  display: flex;
+  z-index: 10;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #FFFFFF;
+}
+.tabContent {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tabFont {
+  padding-top: 10px;
+  margin-bottom: 10px;
+}
 </style>
 
 <template>
   <view>
-    <text>老师</text>
+    <view class="tab">
+      <view class="tabContent" wx:for="{{tab}}" wx:key="index" bindtap="tap" id="{{index}}">
+        <view
+          class="tabFont"
+          style="color: {{index == currentTargetId ? '#349BFF' : '#666666'}};border-bottom: {{index == currentTargetId ? '2px solid #349BFF' : ''}};"
+        >
+          {{item}}
+        </view>
+      </view>
+    </view>
   </view>
 </template>
 
@@ -12,6 +39,17 @@ import wepy from 'wepy'
 export default class Techer extends wepy.page {
   config = {
     navigationBarTitleText: '教师系统'
+  }
+  data = {
+    tab: ['题目管理', '学生管理'],
+    currentTargetId: 0
+  }
+  methods = {
+    tap(e) {
+      let self = this
+      self.currentTargetId = e.currentTarget.id
+      self.type = self.tab[self.currentTargetId]
+    }
   }
 }
 </script>
