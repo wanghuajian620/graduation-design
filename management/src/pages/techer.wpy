@@ -30,6 +30,8 @@
           {{item}}
         </view>
       </view>
+      <view wx:if="{{currentTargetId == 0}}"></view>
+      <view wx:if="{{currentTargetId == 1}}"></view>
     </view>
   </view>
 </template>
