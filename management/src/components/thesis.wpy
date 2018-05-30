@@ -1,9 +1,40 @@
 <style lang="less">
+.flex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #EFEFEF;
+}
+.number {
+  color: red;
+  font-size: 18px;
+  margin-right: 10px;
+}
+.title {
+  width: 194px;
+  font-size: 14px;
+  color: #4D4545;
+}
+.name {
+  width: 50px;
+  font-size: 16px;
+  margin-right: 10px;
+  color: #696969;
+}
+.button {
+  width: 70px;
+}
 </style>
 
 <template>
-  <view>
-    <text></text>
+  <view class="flex">
+    <text class="number">{{item.id}}</text>
+    <text class="title">{{item.title}}</text>
+    <text class="name">{{item.techer_name}}</text>
+    <view class="button">
+      <button type="default" plain="true">{{item.type}}</button>
+    </view>
   </view>
 </template>
 

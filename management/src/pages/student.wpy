@@ -1,17 +1,47 @@
 <style lang="less">
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  color: transparent
+}
 </style>
 
 <template>
   <view>
-    <text>学生</text>
+    <repeat for="{{essay}}" key="index" index="index" item="items">
+      <view @tap="select" id="{{index}}">
+        <thesis :item="items"></thesis>
+      </view>
+    </repeat>
   </view>
 </template>
 
 <script>
 import wepy from 'wepy'
+
+import Thesis from '../components/thesis'
+import { RepoList } from '../libs/request'
+
 export default class Student extends wepy.page {
   config = {
     navigationBarTitleText: '学生选题系统'
+  }
+  components = {
+    thesis: Thesis
+  }
+  data = {
+    essay: []
+  }
+  methods = {
+    select() {}
+  }
+  async loadRepos() {
+    this.essay = await RepoList()
+    this.$apply()
+  }
+
+  async onLoad() {
+    await this.loadRepos()
   }
 }
 </script>
