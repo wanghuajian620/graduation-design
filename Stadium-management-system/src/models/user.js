@@ -5,6 +5,7 @@
 
 import { routerRedux } from 'dva/router';
 import { AdminLogin } from '../services/login';
+import { message } from 'antd';
 
 export default {
 
@@ -23,11 +24,12 @@ export default {
         name: object.payload.userName,
         pwd: object.payload.password,
       };
-      console.log(params, 'bbbbbbb')
+      localStorage.setItem('myAccount', JSON.stringify(params));
       const result = yield call(AdminLogin, params)
-      console.log(result, 'rrrrrr')
       if (result.status === 0) {
         yield put(routerRedux.push('/admin'));
+      } else {
+        message.error('This is a message of error');
       }
     }
   },
