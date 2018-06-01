@@ -31,6 +31,10 @@ export default {
       } else {
         message.error('This is a message of error');
       }
+    },
+    *exit(object, { put }) {
+      yield localStorage.removeItem('myAccount')
+      yield put(routerRedux.push('./'))
     }
   },
 
