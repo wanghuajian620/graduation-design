@@ -31,6 +31,7 @@ class BasicLayout extends React.Component {
     });
   }
   render() {
+    // const myAccount = localStorage.getItem('myAccount');
     return (
       <div>
         <Layout style={{ minHeight: '100vh', backgroundColor: '#FFFFFFF'}}>

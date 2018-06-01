@@ -24,9 +24,9 @@ export default {
         name: object.payload.userName,
         pwd: object.payload.password,
       };
-      localStorage.setItem('myAccount', JSON.stringify(params));
       const result = yield call(AdminLogin, params)
       if (result.status === 0) {
+        yield localStorage.setItem('myAccount', JSON.stringify(params));
         yield put(routerRedux.push('/admin'));
       } else {
         message.error('This is a message of error');
