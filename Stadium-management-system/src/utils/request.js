@@ -9,7 +9,7 @@ import HttpStatus from 'http-status-codes';
 
 axios.defaults.baseURL = 'http://192.168.0.147:8080';
 axios.defaults.timeout = 10000;
-axios.defaults.withCredentials = true; // 解决的是session的问题，不写一直报401未登录
+// axios.defaults.withCredentials = true; // 解决的是session的问题，不写一直报401未登录
 
 const fetch = (options) => {
   const {

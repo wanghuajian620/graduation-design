@@ -33,7 +33,7 @@ class Newuser extends React.Component {
             })(
               <Input
                 prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                placeholder="Username"
+                placeholder="User-name"
               />,
             )}
           </FormItem>
@@ -44,7 +44,7 @@ class Newuser extends React.Component {
               <Input
                 prefix={<Icon type="phone" style={{ color: 'rgba(0,0,0,.25)' }} />}
                 type="password"
-                placeholder="Password"
+                placeholder="Phone-number"
               />,
             )}
           </FormItem>
