@@ -5,6 +5,9 @@
 
 import React from 'react';
 import { Layout, Menu, Icon, Avatar, Dropdown } from 'antd';
+import { Switch, Link, Route } from 'dva/router';
+
+import Newuser from '../routes/Newuser';
 import styles from '../layouts/BasicLayout.less';
 
 const { Header, Footer, Sider, Content } = Layout;
@@ -54,7 +57,7 @@ class BasicLayout extends React.Component {
               defaultOpenKeys={['sub1']}
             >
               <SubMenu key="sub1" title={<span><Icon type="team" /><span>用户管理</span></span>}>
-                <Menu.Item key="1">新用户</Menu.Item>
+                <Menu.Item key="1"><Link to="/admin/newuser">新用户</Link></Menu.Item>
                 <Menu.Item key="2">修改状态</Menu.Item>
                 <Menu.Item key="3">查看用户信息</Menu.Item>
                 <Menu.Item key="4">用户列表</Menu.Item>
@@ -94,7 +97,14 @@ class BasicLayout extends React.Component {
                 </span>
               </Dropdown>
             </Header>
-            <Content style={{ minHeight: '80vh', backgroundColor: '#FFFFFFF'}}>Content</Content>
+            <Content style={{ minHeight: '80vh', backgroundColor: '#FFFFFFF'}}>
+              <Switch>
+                <Route path="/admin/newuser" component={Newuser} />
+                {/* <Route path="/form" component={Record} />
+                <Route path="/star" component={Reserve} />
+                <Route path="/user" component={Me} /> */}
+              </Switch>
+            </Content>
             <Footer style={{ background: '#fff' }} className={styles.footer}>
               Copyright <Icon type="copyright" /> 2018毕业设计
             </Footer>
