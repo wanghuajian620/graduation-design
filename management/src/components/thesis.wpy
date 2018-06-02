@@ -29,9 +29,9 @@
 
 <template>
   <view class="flex">
-    <text class="number">{{item.id}}</text>
+    <text class="number">{{item.ID}}</text>
     <text class="title">{{item.title}}</text>
-    <text class="name">{{item.techer_name}}</text>
+    <text class="name">{{item.teacher_name}}</text>
     <view class="button">
       <button type="default" plain="true">{{item.type}}</button>
     </view>

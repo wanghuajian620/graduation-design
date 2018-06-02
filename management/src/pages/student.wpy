@@ -20,7 +20,7 @@
 import wepy from 'wepy'
 
 import Thesis from '../components/thesis'
-import { RepoList } from '../libs/request'
+// import { RepoList } from '../libs/request'
 
 export default class Student extends wepy.page {
   config = {
@@ -35,13 +35,25 @@ export default class Student extends wepy.page {
   methods = {
     select() {}
   }
-  async loadRepos() {
-    this.essay = await RepoList()
-    this.$apply()
-  }
-
-  async onLoad() {
-    await this.loadRepos()
+  onLoad() {
+    let self = this
+    var header
+    header = {
+      'content-type': 'application/x-www-form-urlencoded',
+      'cookie': wepy.getStorageSync('sessionid') // 读取cookie
+    }
+    wepy.request({
+      url: 'http://192.168.0.105:8080/graduation/student/get',
+      method: 'GET',
+      header: header,
+      success(res) {
+        console.log(res.data.data, 'kkkkkkk')
+        self.essay = res.data.data
+        self.setData({
+          essay: res.data.data
+        })
+      }
+    })
   }
 }
 </script>
