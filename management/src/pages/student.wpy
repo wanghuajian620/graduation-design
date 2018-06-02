@@ -20,7 +20,6 @@
 import wepy from 'wepy'
 
 import Thesis from '../components/thesis'
-// import { RepoList } from '../libs/request'
 
 export default class Student extends wepy.page {
   config = {
@@ -33,7 +32,17 @@ export default class Student extends wepy.page {
     essay: []
   }
   methods = {
-    select() {}
+    select(e) {
+      console.log(e.currentTarget.id, 'eeeeeeeee')
+      wepy.request({
+        url: 'http://192.168.0.105:8080/graduation/student/select',
+        method: 'POST',
+        data: {id: e.currentTarget.id[this.essay.ID]},
+        success(res) {
+          console.log(res)
+        }
+      })
+    }
   }
   onLoad() {
     let self = this

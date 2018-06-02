@@ -37,7 +37,7 @@
           <input name="input" placeholder="pass word" password="true" bindinput="listenerPasswordInput" adjust-position="true" class="in" />
         </view>
         <view class="login">
-          <button @tap="push" type="primary" formType="submit">登录</button>
+          <button @tap="push" type="primary">登录</button>
         </view>
       </view>
     </form>
