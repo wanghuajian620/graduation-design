@@ -33,11 +33,22 @@ export default class Student extends wepy.page {
   }
   methods = {
     select(e) {
-      console.log(e.currentTarget.id, 'eeeeeeeee')
+      let data = {
+        id: this.essay[e.currentTarget.id].ID
+      }
+      console.log(data, 'ID')
+      var header
+      header = {
+        'content-type': 'application/x-www-form-urlencoded',
+        'cookie': wepy.getStorageSync('sessionid') // 读取cookie
+      }
       wepy.request({
-        url: 'http://192.168.0.105:8080/graduation/student/select',
+        url: 'http://192.168.0.100:8080/graduation/student/select',
         method: 'POST',
-        data: {id: e.currentTarget.id[this.essay.ID]},
+        header: header,
+        data: {
+          id: this.essay[e.currentTarget.id].ID
+        },
         success(res) {
           console.log(res)
         }
@@ -52,11 +63,11 @@ export default class Student extends wepy.page {
       'cookie': wepy.getStorageSync('sessionid') // 读取cookie
     }
     wepy.request({
-      url: 'http://192.168.0.105:8080/graduation/student/get',
+      url: 'http://192.168.0.100:8080/graduation/student/get',
       method: 'GET',
       header: header,
       success(res) {
-        console.log(res.data.data, 'kkkkkkk')
+        console.log(res, '请求到的内容')
         self.essay = res.data.data
         self.setData({
           essay: res.data.data

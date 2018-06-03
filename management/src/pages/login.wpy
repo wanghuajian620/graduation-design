@@ -65,7 +65,7 @@
       },
       push() {
         wepy.request({
-          url: 'http://192.168.0.105:8080/graduation/user/login',
+          url: 'http://192.168.0.100:8080/graduation/user/login',
           method: 'POST',
           data: {
             name: this.data.name,
