@@ -1,0 +1,16 @@
+<style lang="less">
+</style>
+
+<template>
+  <view></view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class TeacherManangemnet extends wepy.component {
+  props = {
+    item: Object
+  }
+}
+</script>
