@@ -1,28 +1,45 @@
 <style lang="less">
-.tab {
+.flex-text {
   display: flex;
-  z-index: 10;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  background-color: #FFFFFF;
-}
-.tabContent {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 5px 
 }
 .tabFont {
   padding-top: 10px;
   margin-bottom: 10px;
+}
+.flexinput {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  margin-top: 100px;
+}
+.input {
+  height: 40px;
+  width: 280px;
+  margin-top: 20px;
+  border-radius: 5px;
+  background-color:	#EFEFEF
+}
+.in {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+}
+.add {
+  width: 280px;
+  margin-top: 40px;
 }
 </style>
 
 <template>
   <view>
     <view class="tab">
-      <view class="tabContent" wx:for="{{tab}}" wx:key="index" bindtap="tap" id="{{index}}">
+      <view class="flex-text" wx:for="{{tab}}" wx:key="index" bindtap="tap" id="{{index}}">
         <view
           class="tabFont"
           style="color: {{index == currentTargetId ? '#349BFF' : '#666666'}};border-bottom: {{index == currentTargetId ? '2px solid #349BFF' : ''}};"
@@ -30,7 +47,18 @@
           {{item}}
         </view>
       </view>
-      <view wx:if="{{currentTargetId == 0}}"></view>
+      <view wx:if="{{currentTargetId == 0}}">
+        <form bindsubmit="formSubmit" bindreset="formReset">
+          <view class="flexinput">
+            <view class="input">
+              <input name="input" type="text" placeholder="毕设 题目" bindinput="listenerPhoneInput" adjust-position="true" class="in" />
+            </view>
+            <view class="add">
+              <button @tap="insert" type="primary">添加</button>
+            </view>
+          </view>
+        </form>
+      </view>
       <view wx:if="{{currentTargetId == 1}}"></view>
     </view>
   </view>
@@ -44,13 +72,36 @@ export default class Techer extends wepy.page {
   }
   data = {
     tab: ['题目管理', '学生管理'],
-    currentTargetId: 0
+    currentTargetId: 0,
+    name: ''
   }
   methods = {
     tap(e) {
       let self = this
       self.currentTargetId = e.currentTarget.id
       self.type = self.tab[self.currentTargetId]
+    },
+    listenerPhoneInput(e) {
+      this.data.name = e.detail.value
+    },
+    insert() {
+      console.log(this.data, 'aiaiaiiia')
+      var header
+      header = {
+        'content-type': 'application/x-www-form-urlencoded',
+        'cookie': wepy.getStorageSync('sessionid') // 读取cookie
+      }
+      wepy.request({
+        url: 'http://192.168.0.104:8080/graduation/teacher/add',
+        method: 'POST',
+        header: header,
+        data: {
+          name: this.data.name
+        },
+        success(res) {
+          console.log(res, '看看res的内容')
+        }
+      })
     }
   }
 }

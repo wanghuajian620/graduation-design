@@ -43,7 +43,7 @@ export default class Student extends wepy.page {
         'cookie': wepy.getStorageSync('sessionid') // 读取cookie
       }
       wepy.request({
-        url: 'http://192.168.0.100:8080/graduation/student/select',
+        url: 'http://192.168.0.104:8080/graduation/student/select',
         method: 'POST',
         header: header,
         data: {
@@ -63,7 +63,7 @@ export default class Student extends wepy.page {
       'cookie': wepy.getStorageSync('sessionid') // 读取cookie
     }
     wepy.request({
-      url: 'http://192.168.0.100:8080/graduation/student/get',
+      url: 'http://192.168.0.104:8080/graduation/student/get',
       method: 'GET',
       header: header,
       success(res) {
