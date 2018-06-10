@@ -8,6 +8,11 @@ import { Layout, Menu, Icon, Avatar, Dropdown } from 'antd';
 import { Switch, Link, Route } from 'dva/router';
 
 import Newuser from '../routes/Newuser';
+import Modifystate from '../routes/Modifystate';
+import Selectuser from '../routes/Selectuser';
+import Userlist from '../routes/Userlist';
+import Topup from '../routes/Topup';
+
 import styles from '../layouts/BasicLayout.less';
 
 const { Header, Footer, Sider, Content } = Layout;
@@ -58,10 +63,10 @@ class BasicLayout extends React.Component {
             >
               <SubMenu key="sub1" title={<span><Icon type="team" /><span>用户管理</span></span>}>
                 <Menu.Item key="1"><Link to="/admin/newuser">新用户</Link></Menu.Item>
-                <Menu.Item key="2">修改状态</Menu.Item>
-                <Menu.Item key="3">查看用户信息</Menu.Item>
-                <Menu.Item key="4">用户列表</Menu.Item>
-                <Menu.Item key="5">充值</Menu.Item>
+                <Menu.Item key="2"><Link to="/admin/modifystate">修改状态</Link></Menu.Item>
+                <Menu.Item key="3"><Link to="/admin/selectuser">查看用户信息</Link></Menu.Item>
+                <Menu.Item key="4"><Link to="/admin/userlist">用户列表</Link></Menu.Item>
+                <Menu.Item key="5"><Link to="/admin/topup">充值</Link></Menu.Item>
               </SubMenu>
               <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>场地管理</span></span>}>
                 <Menu.Item key="6">新建场地</Menu.Item>
@@ -100,9 +105,10 @@ class BasicLayout extends React.Component {
             <Content style={{ minHeight: '80vh', backgroundColor: '#FFFFFFF'}}>
               <Switch>
                 <Route path="/admin/newuser" component={Newuser} />
-                {/* <Route path="/form" component={Record} />
-                <Route path="/star" component={Reserve} />
-                <Route path="/user" component={Me} /> */}
+                <Route path="/admin/modifystate" component={Modifystate} />
+                <Route path="/admin/selectuser" component={Selectuser} />
+                <Route path="/admin/userlist" component={Userlist} />
+                <Route path="/admin/topup" component={Topup} />
               </Switch>
             </Content>
             <Footer style={{ background: '#fff' }} className={styles.footer}>
