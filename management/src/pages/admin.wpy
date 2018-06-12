@@ -1,9 +1,44 @@
 <style lang="less">
+.layout-flex {
+  display: flex;
+  flex-direction: column;
+  background: #C4CBCF;
+}
+.go-flex {
+  display: flex;
+  flex-direction: column;
+  background-color: #FFF;
+  padding: 20rpx;
+  margin-top: 50rpx;
+}
+.buttton {
+  border-radius: 0px
+}
 </style>
 
 <template>
-  <view>
-    <text>管理员</text>
+  <view class="layout-flex">
+    <form bindsubmit="formSubmit" bindreset="formReset">
+      <view class="go-flex">
+        <input value="姓名：" type="text" adjust-position="true" bindinput="listener" />
+        <input value="工号：" type="number" adjust-position="true" bindinput="listenerone" />
+        <input value="性别：" type="text" adjust-position="true" bindinput="listenertwo" />
+        <input value="职业：" type="text" adjust-position="true" bindinput="listenerthree" />
+        <input value="部门：" type="text" adjust-position="true" bindinput="listenerfour" />
+      </view>
+      <button @tap="teacher" class="button" formType="submit">Add</button>
+    </form>
+    <form bindsubmit="formSubmit" bindreset="formReset">
+      <view class="go-flex">
+        <input value="姓名：" type="text" adjust-position="true" bindinput="add" />
+        <input value="学号：" type="number" adjust-position="true" bindinput="addone" />
+        <input value="性别：" type="text" adjust-position="true" bindinput="addtwo" />
+        <input value="专业：" type="text" adjust-position="true" bindinput="addthree" />
+        <input value="班级：" type="text" adjust-position="true" bindinput="addfour" />
+        <input value="入学时间：" type="text" adjust-position="true" />
+      </view>
+      <button @tap="student" class="button" formType="submit">Add</button>
+    </form>
   </view>
 </template>
 
@@ -12,6 +47,19 @@ import wepy from 'wepy'
 export default class Admin extends wepy.page {
   config = {
     navigationBarTitleText: '管理员系统'
+  }
+  data = {
+    name: '',
+    number: '',
+    sex: '',
+    profession: '',
+    department: '',
+    major: '',
+    class: '',
+    year: ''
+  }
+  methods = {
+
   }
 }
 </script>

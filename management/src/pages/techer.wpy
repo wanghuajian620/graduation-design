@@ -50,7 +50,7 @@
           <form bindsubmit="formSubmit" bindreset="formReset">
             <view class="flexinput">
               <view class="input">
-                <input name="input" type="text" placeholder="毕设 题目" bindinput="listenerPhoneInput" adjust-position="true" />
+                <input type="text" placeholder="毕设 题目" bindinput="listenerPhoneInput" adjust-position="true" />
                 <button @tap="insert" class="button" type="primary">添加</button>
               </view>
             </view>
@@ -116,24 +116,9 @@ export default class Techer extends wepy.page {
       })
     },
     click(e) {
-      let data = {
-        id: this.title[e.currentTarget.id].name
-      }
-      console.log(data, 'ID')
-      let header = {
-        'cookie': wepy.getStorageSync('sessionid') // 读取cookie
-      }
-      wepy.request({
-        url: 'http://192.168.0.102:8080/graduation/teacher/modify',
-        method: 'POST',
-        header: header,
-        data: {
-          id: this.title[e.currentTarget.id].id,
-          name: this.title[e.currentTarget.id].name
-        },
-        success(res) {
-          console.log(res, 'click')
-        }
+      const id = this.title[e.currentTarget.id].id
+      wepy.navigateTo({
+        url: `./modify?id=${id}`
       })
     }
   }
@@ -151,7 +136,6 @@ export default class Techer extends wepy.page {
         self.setData({
           title: res.data.data
         })
-        console.log(res, 'lalalalla')
       }
     })
   }

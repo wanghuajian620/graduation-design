@@ -1,10 +1,28 @@
 <style lang="less">
+.flex {
+  display: flex;
+  flex-direction: column;
+  height: 50px;
+  width: 350px;
+  margin-top: 40px;
+  border-radius: 5px;
+  background-color:	#EFEFEF
+}
+.button {
+  margin-top: 20px;
+  font-size: 16px
+}
 </style>
 
 <template>
-<view>
-
-</view>
+  <view>
+    <form bindsubmit="formSubmit" bindreset="formReset">
+      <view class="flex">
+        <input @tap="listener" name="input" type="text" placeholder="毕设 题目" adjust-position="true" />
+      </view>
+      <button @tap="modify" class="button" size="default" type="primary">确定</button>
+    </form>
+  </view>
 </template>
 
 <script>
@@ -13,6 +31,50 @@ import wepy from 'wepy'
 export default class Modify extends wepy.page {
   config = {
     navigationBarTitleText: '修改'
+  }
+  data = {
+    ID: 0,
+    name: ''
+  }
+  methods = {
+    listener(e) {
+      this.data.name = e.detail.value
+    },
+    modify(serf) {
+      let data = {
+        id: serf.ID
+      }
+      console.log(data, 'erbi')
+      console.log(this.data.name, '傻逼草拟吗')
+      let header = {
+        'cookie': wepy.getStorageSync('sessionid') // 读取cookie
+      }
+      wepy.request({
+        url: 'http://192.168.0.102:8080/graduation/teacher/modify',
+        method: 'POST',
+        header: header,
+        data: {
+          id: serf.ID,
+          name: this.data.name
+        },
+        success(res) {
+          // wepy.showToast({
+          //   title: '修改成功',
+          //   icon: 'success',
+          //   duration: 2000
+          // })
+          console.log(res)
+        }
+      })
+    }
+  }
+  onLoad(res) {
+    let serf = this
+    serf.ID = res.id
+    serf.setData({
+      ID: res.id
+    })
+    self.methods.modify(serf) // 把onLoad()中的self传到方法中使用
   }
 }
 </script>
