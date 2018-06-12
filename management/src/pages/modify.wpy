@@ -1,0 +1,18 @@
+<style lang="less">
+</style>
+
+<template>
+<view>
+
+</view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class Modify extends wepy.page {
+  config = {
+    navigationBarTitleText: '修改'
+  }
+}
+</script>

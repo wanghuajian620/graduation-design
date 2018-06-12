@@ -26,6 +26,7 @@ export default class extends wepy.app {
       'pages/login',
       'pages/student',
       'pages/techer',
+      'pages/modify',
       'pages/admin'
     ],
     window: {

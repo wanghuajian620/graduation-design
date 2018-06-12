@@ -25,7 +25,7 @@
 
 <template>
   <view class="flex">
-    <text class="title">{{item.title}}</text>
+    <text class="title">{{item.name}}</text>
     <text class="name">{{item.teacher_name}}</text>
     <view wx:if="{{item.type === 2}}" class="button">
       <button type="primary" formType="submit">可选</button>

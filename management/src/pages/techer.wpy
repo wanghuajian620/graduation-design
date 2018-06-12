@@ -2,8 +2,8 @@
 .flex-text {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  margin-top: 5px 
+  justify-content: center;
+  align-items: center;
 }
 .tabFont {
   padding-top: 10px;
@@ -11,28 +11,26 @@
 }
 .flexinput {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  padding: 50px;
-  margin-top: 100px;
+  padding: 20px;
 }
 .input {
-  height: 40px;
-  width: 280px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 300px;
   margin-top: 20px;
   border-radius: 5px;
   background-color:	#EFEFEF
 }
-.in {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 5px;
+.button {
+  padding-left: 23px;
+  padding-right: 23px;
 }
-.add {
-  width: 280px;
-  margin-top: 40px;
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  color: transparent
 }
 </style>
 
@@ -48,16 +46,21 @@
         </view>
       </view>
       <view wx:if="{{currentTargetId == 0}}">
-        <form bindsubmit="formSubmit" bindreset="formReset">
-          <view class="flexinput">
-            <view class="input">
-              <input name="input" type="text" placeholder="毕设 题目" bindinput="listenerPhoneInput" adjust-position="true" class="in" />
+        <view>
+          <form bindsubmit="formSubmit" bindreset="formReset">
+            <view class="flexinput">
+              <view class="input">
+                <input name="input" type="text" placeholder="毕设 题目" bindinput="listenerPhoneInput" adjust-position="true" />
+                <button @tap="insert" class="button" type="primary">添加</button>
+              </view>
             </view>
-            <view class="add">
-              <button @tap="insert" type="primary">添加</button>
+          </form>
+          <repeat for="{{title}}" key="index" index="index" item="items">
+            <view @tap="click" id="{{index}}">
+              <addname :item="items"></addname>
             </view>
-          </view>
-        </form>
+          </repeat>
+        </view>
       </view>
       <view wx:if="{{currentTargetId == 1}}"></view>
     </view>
@@ -66,6 +69,9 @@
 
 <script>
 import wepy from 'wepy'
+
+import AddName from '../components/addname'
+
 export default class Techer extends wepy.page {
   config = {
     navigationBarTitleText: '教师系统'
@@ -73,7 +79,11 @@ export default class Techer extends wepy.page {
   data = {
     tab: ['题目管理', '学生管理'],
     currentTargetId: 0,
-    name: ''
+    name: '',
+    title: ''
+  }
+  components = {
+    addname: AddName
   }
   methods = {
     tap(e) {
@@ -85,24 +95,65 @@ export default class Techer extends wepy.page {
       this.data.name = e.detail.value
     },
     insert() {
-      console.log(this.data, 'aiaiaiiia')
-      var header
-      header = {
-        'content-type': 'application/x-www-form-urlencoded',
+      console.log(this.data.name, 'aiaiaiiia')
+      let header = {
         'cookie': wepy.getStorageSync('sessionid') // 读取cookie
       }
       wepy.request({
-        url: 'http://192.168.0.104:8080/graduation/teacher/add',
+        url: 'http://192.168.0.102:8080/graduation/teacher/add',
         method: 'POST',
         header: header,
         data: {
           name: this.data.name
         },
         success(res) {
-          console.log(res, '看看res的内容')
+          wepy.showToast({
+            title: '添加成功',
+            icon: 'success',
+            duration: 2000
+          })
+        }
+      })
+    },
+    click(e) {
+      let data = {
+        id: this.title[e.currentTarget.id].name
+      }
+      console.log(data, 'ID')
+      let header = {
+        'cookie': wepy.getStorageSync('sessionid') // 读取cookie
+      }
+      wepy.request({
+        url: 'http://192.168.0.102:8080/graduation/teacher/modify',
+        method: 'POST',
+        header: header,
+        data: {
+          id: this.title[e.currentTarget.id].id,
+          name: this.title[e.currentTarget.id].name
+        },
+        success(res) {
+          console.log(res, 'click')
         }
       })
     }
+  }
+  onLoad() {
+    let self = this
+    let header = {
+      'cookie': wepy.getStorageSync('sessionid') // 读取cookie
+    }
+    wepy.request({
+      url: 'http://192.168.0.102:8080/graduation/teacher/get',
+      header: header,
+      method: 'POST',
+      success(res) {
+        self.title = res.data.data
+        self.setData({
+          title: res.data.data
+        })
+        console.log(res, 'lalalalla')
+      }
+    })
   }
 }
 </script>

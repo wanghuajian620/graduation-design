@@ -4,10 +4,16 @@
   height: 0px;
   color: transparent
 }
+.repeat {
+  background-color: #4D4545
+}
 </style>
 
 <template>
   <view>
+    <view class="single">
+      <text>{{JSON.parse(single)}}</text>
+    </view>
     <repeat for="{{essay}}" key="index" index="index" item="items">
       <view @tap="select" id="{{index}}">
         <thesis :item="items"></thesis>
@@ -29,7 +35,8 @@ export default class Student extends wepy.page {
     thesis: Thesis
   }
   data = {
-    essay: []
+    essay: [],
+    single: ''
   }
   methods = {
     select(e) {
@@ -37,13 +44,11 @@ export default class Student extends wepy.page {
         id: this.essay[e.currentTarget.id].ID
       }
       console.log(data, 'ID')
-      var header
-      header = {
-        'content-type': 'application/x-www-form-urlencoded',
+      let header = {
         'cookie': wepy.getStorageSync('sessionid') // 读取cookie
       }
       wepy.request({
-        url: 'http://192.168.0.104:8080/graduation/student/select',
+        url: 'http://192.168.0.102:8080/graduation/student/select',
         method: 'POST',
         header: header,
         data: {
@@ -57,20 +62,19 @@ export default class Student extends wepy.page {
   }
   onLoad() {
     let self = this
-    var header
-    header = {
-      'content-type': 'application/x-www-form-urlencoded',
+    let header = {
       'cookie': wepy.getStorageSync('sessionid') // 读取cookie
     }
     wepy.request({
-      url: 'http://192.168.0.104:8080/graduation/student/get',
+      url: 'http://192.168.0.102:8080/graduation/student/get',
       method: 'GET',
       header: header,
       success(res) {
-        console.log(res, '请求到的内容')
         self.essay = res.data.data
+        self.single = res.data.select
         self.setData({
-          essay: res.data.data
+          essay: res.data.data,
+          single: res.data.select
         })
       }
     })
