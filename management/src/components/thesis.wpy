@@ -30,8 +30,11 @@
     <view wx:if="{{item.type === 2}}" class="button">
       <button type="primary" formType="submit">可选</button>
     </view>
-    <view wx:else class="button">
-      <button type="default" formType="submit">不可选</button>
+    <view wx:if="{{item.type === 3}}" class="button">
+      <button type="default" formType="submit">可退选</button>
+    </view>
+    <view wx:if="{{item.type === 4}}" class="button">
+      <button type="default" formType="submit">已完成</button>
     </view>
   </view>
 </template>

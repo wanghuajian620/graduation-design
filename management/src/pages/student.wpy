@@ -40,10 +40,6 @@ export default class Student extends wepy.page {
   }
   methods = {
     select(e) {
-      let data = {
-        id: this.essay[e.currentTarget.id].ID
-      }
-      console.log(data, 'ID')
       let header = {
         'cookie': wepy.getStorageSync('sessionid') // 读取cookie
       }
@@ -52,7 +48,7 @@ export default class Student extends wepy.page {
         method: 'POST',
         header: header,
         data: {
-          id: this.essay[e.currentTarget.id].ID
+          id: this.essay[e.currentTarget.id].id
         },
         success(res) {
           console.log(res)
@@ -76,6 +72,7 @@ export default class Student extends wepy.page {
           essay: res.data.data,
           single: res.data.select
         })
+        console.log(res.data.data)
       }
     })
   }
