@@ -45,12 +45,12 @@ export default class Modify extends wepy.page {
         id: serf.ID
       }
       console.log(data, 'erbi')
-      console.log(this.data.name, '傻逼草拟吗')
+      console.log(this.data.name, '出不来呀呀呀呀呀呀呀')
       let header = {
         'cookie': wepy.getStorageSync('sessionid') // 读取cookie
       }
       wepy.request({
-        url: 'http://192.168.0.102:8080/graduation/teacher/modify',
+        url: 'http://192.168.0.111:8080/graduation/teacher/modify',
         method: 'POST',
         header: header,
         data: {

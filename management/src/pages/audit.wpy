@@ -1,0 +1,95 @@
+<style lang="less">
+</style>
+
+<template>
+<view>
+  <repeat for="{{content}}" key="index" index="index" item="items">
+    <view @tap="click" id="{{index}}">
+      <through :item="items"></through>
+    </view>
+  </repeat>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy'
+import Through from '../components/through'
+
+export default class Audit extends wepy.page {
+  config = {
+    navigationBarTitleText: '审核'
+  }
+
+  components = {
+    through: Through
+  }
+
+  data = {
+    content: []
+  }
+
+  methods = {
+    click(e) {
+      let self = this
+      wepy.showModal({
+        title: '提示',
+        content: '通过本题目',
+        cancelText: '拒绝',
+        confirmText: '通过',
+        success: function(res) {
+          if (res.confirm) {
+            let header = {
+              'cookie': wepy.getStorageSync('sessionid') // 读取cookie
+            }
+            wepy.request({
+              url: 'http://192.168.0.111:8080/graduation/admin/check',
+              method: 'POST',
+              header: header,
+              data: {
+                id: self.content[e.currentTarget.id].id
+              },
+              success(res) {
+                console.log(res)
+              }
+            })
+          } else if (res.cancel) {
+            let header = {
+              'cookie': wepy.getStorageSync('sessionid') // 读取cookie
+            }
+            wepy.request({
+              url: 'http://192.168.0.111:8080/graduation/admin/delete',
+              method: 'POST',
+              header: header,
+              data: {
+                id: self.content[e.currentTarget.id].id
+              },
+              success(res) {
+                console.log(res)
+              }
+            })
+          }
+        }
+      })
+    }
+  }
+
+  onLoad() {
+    let self = this
+    let header = {
+      'cookie': wepy.getStorageSync('sessionid') // 读取cookie
+    }
+    wepy.request({
+      url: 'http://192.168.0.111:8080/graduation/admin/gettopic',
+      method: 'GET',
+      header: header,
+      success(res) {
+        self.content = res.data.data
+        self.setData({
+          content: res.data.data
+        })
+        console.log(res)
+      }
+    })
+  }
+}
+</script>

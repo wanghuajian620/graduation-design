@@ -62,7 +62,13 @@
           </repeat>
         </view>
       </view>
-      <view wx:if="{{currentTargetId == 1}}"></view>
+      <view wx:if="{{currentTargetId == 1}}">
+        <repeat for="{{content}}" key="index" index="index" item="items">
+          <view @tap="touch" id="{{index}}">
+            <managment :item="items"></managment>
+          </view>
+        </repeat>
+      </view>
     </view>
   </view>
 </template>
@@ -71,6 +77,7 @@
 import wepy from 'wepy'
 
 import AddName from '../components/addname'
+import Managment from '../components/managment'
 
 export default class Techer extends wepy.page {
   config = {
@@ -80,10 +87,12 @@ export default class Techer extends wepy.page {
     tab: ['题目管理', '学生管理'],
     currentTargetId: 0,
     name: '',
-    title: ''
+    title: '',
+    content: ''
   }
   components = {
-    addname: AddName
+    addname: AddName,
+    managment: Managment
   }
   methods = {
     tap(e) {
@@ -95,12 +104,11 @@ export default class Techer extends wepy.page {
       this.data.name = e.detail.value
     },
     insert() {
-      console.log(this.data.name, 'aiaiaiiia')
       let header = {
         'cookie': wepy.getStorageSync('sessionid') // 读取cookie
       }
       wepy.request({
-        url: 'http://192.168.0.102:8080/graduation/teacher/add',
+        url: 'http://192.168.0.111:8080/graduation/teacher/add',
         method: 'POST',
         header: header,
         data: {
@@ -120,6 +128,48 @@ export default class Techer extends wepy.page {
       wepy.navigateTo({
         url: `./modify?id=${id}`
       })
+    },
+    touch(e) {
+      let self = this
+      wepy.showModal({
+        title: '提示',
+        content: '学生题目',
+        cancelText: '不同意',
+        confirmText: '同意',
+        success: function(res) {
+          if (res.confirm) {
+            let header = {
+              'cookie': wepy.getStorageSync('sessionid') // 读取cookie
+            }
+            wepy.request({
+              url: 'http://192.168.0.111:8080/graduation/teacher/verify',
+              method: 'POST',
+              header: header,
+              data: {
+                id: self.content[e.currentTarget.id].id
+              },
+              success(res) {
+                console.log(res)
+              }
+            })
+          } else if (res.cancel) {
+            let header = {
+              'cookie': wepy.getStorageSync('sessionid') // 读取cookie
+            }
+            wepy.request({
+              url: 'http://192.168.0.111:8080/graduation/teacher/refuse',
+              method: 'POST',
+              header: header,
+              data: {
+                id: self.content[e.currentTarget.id].id
+              },
+              success(res) {
+                console.log(res)
+              }
+            })
+          }
+        }
+      })
     }
   }
   onLoad() {
@@ -128,13 +178,15 @@ export default class Techer extends wepy.page {
       'cookie': wepy.getStorageSync('sessionid') // 读取cookie
     }
     wepy.request({
-      url: 'http://192.168.0.102:8080/graduation/teacher/get',
+      url: 'http://192.168.0.111:8080/graduation/teacher/get',
       header: header,
       method: 'POST',
       success(res) {
         self.title = res.data.data
+        self.content = res.data.data
         self.setData({
-          title: res.data.data
+          title: res.data.data,
+          content: res.data.data
         })
       }
     })

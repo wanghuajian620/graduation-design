@@ -1,0 +1,34 @@
+<style lang="less">
+.flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #EFEFEF;
+}
+.title {
+  width: 180px;
+  font-size: 14px;
+  margin-right: 16px;
+  color: #4D4545;
+}
+</style>
+
+<template>
+  <view class="flex">
+    <text class="title">{{item.name}}</text>
+    <text>{{item.StuName}}</text>
+    <!-- <text>{{item.StuNum}}</text> -->
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class Managment extends wepy.component {
+  props = {
+    item: Object
+  }
+}
+</script>

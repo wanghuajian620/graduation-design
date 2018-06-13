@@ -14,31 +14,52 @@
 .buttton {
   border-radius: 0px
 }
+.buttton-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center
+}
+.word-audit {
+  font-size: 50rpx;
+  font-weight: 500;
+  color: #bb5535;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 20px
+}
 </style>
 
 <template>
   <view class="layout-flex">
     <form bindsubmit="formSubmit" bindreset="formReset">
       <view class="go-flex">
-        <input value="姓名：" type="text" adjust-position="true" bindinput="listener" />
-        <input value="工号：" type="number" adjust-position="true" bindinput="listenerone" />
-        <input value="性别：" type="text" adjust-position="true" bindinput="listenertwo" />
-        <input value="职业：" type="text" adjust-position="true" bindinput="listenerthree" />
-        <input value="部门：" type="text" adjust-position="true" bindinput="listenerfour" />
+        <input placeholder="姓名：" type="text" adjust-position="true" bindinput="listener" />
+        <input placeholder="工号：" type="number" adjust-position="true" bindinput="listenerone" />
+        <input placeholder="性别：" type="text" adjust-position="true" bindinput="listenertwo" />
+        <input placeholder="职业：" type="text" adjust-position="true" bindinput="listenerthree" />
+        <input placeholder="部门：" type="text" adjust-position="true" bindinput="listenerfour" />
       </view>
-      <button @tap="teacher" class="button" formType="submit">Add</button>
+      <view class="button-flex">
+        <button @tap="teacher" type="default" class="button" formType="submit">添加</button>
+        <button @tap="xiu" class="button" formType="submit">修改</button>
+      </view>
     </form>
     <form bindsubmit="formSubmit" bindreset="formReset">
       <view class="go-flex">
-        <input value="姓名：" type="text" adjust-position="true" bindinput="add" />
-        <input value="学号：" type="number" adjust-position="true" bindinput="addone" />
-        <input value="性别：" type="text" adjust-position="true" bindinput="addtwo" />
-        <input value="专业：" type="text" adjust-position="true" bindinput="addthree" />
-        <input value="班级：" type="text" adjust-position="true" bindinput="addfour" />
-        <input value="入学时间：" type="text" adjust-position="true" />
+        <input placeholder="姓名：" type="text" adjust-position="true" bindinput="add" />
+        <input placeholder="学号：" type="number" adjust-position="true" bindinput="addone" />
+        <input placeholder="性别：" type="text" adjust-position="true" bindinput="addtwo" />
+        <input placeholder="专业：" type="text" adjust-position="true" bindinput="addthree" />
+        <input placeholder="班级：" type="text" adjust-position="true" bindinput="addfour" />
+        <!-- <input placeholder="入学时间：" type="number" adjust-position="true" bindinput="addfive" /> -->
       </view>
-      <button @tap="student" class="button" formType="submit">Add</button>
+      <view class="button-flex">
+        <button @tap="student" type="default" class="button" formType="submit">添加</button>
+        <button @tap="gai" class="button" formType="submit">修改</button>
+      </view>
     </form>
+    <text @tap="click" class="word-audit">审核题目 >>>>>>>></text>
   </view>
 </template>
 
@@ -55,11 +76,99 @@ export default class Admin extends wepy.page {
     profession: '',
     department: '',
     major: '',
-    class: '',
-    year: ''
+    class: ''
+    // year: ''
   }
   methods = {
-
+    listener(e) {
+      this.data.name = e.detail.value
+    },
+    listenerone(e) {
+      this.data.number = e.detail.value
+    },
+    listenertwo(e) {
+      this.data.sex = e.detail.value
+    },
+    listenerthree(e) {
+      this.data.profession = e.detail.value
+    },
+    listenerfour(e) {
+      this.data.department = e.detail.value
+    },
+    add(e) {
+      this.data.name = e.detail.value
+    },
+    addone(e) {
+      this.data.number = e.detail.value
+    },
+    addtwo(e) {
+      this.data.sex = e.detail.value
+    },
+    addthree(e) {
+      this.data.major = e.detail.value
+    },
+    addfour(e) {
+      this.data.class = e.detail.value
+    },
+    // addfive(e) {
+    //   this.data.year = e.detail.value
+    // },
+    teacher() {
+      let header = {
+        'cookie': wepy.getStorageSync('sessionid') // 读取cookie
+      }
+      wepy.request({
+        url: 'http://192.168.0.111:8080/graduation/admin/addinfo',
+        method: 'POST',
+        header: header,
+        data: {
+          name: this.data.name,
+          number: this.data.number,
+          sex: this.data.sex,
+          profession: this.data.profession,
+          department: this.data.department
+        },
+        success(res) {
+          wepy.showToast({
+            title: '添加成功',
+            icon: 'success',
+            duration: 2000
+          })
+          console.log(res)
+        }
+      })
+    },
+    student() {
+      let header = {
+        'cookie': wepy.getStorageSync('sessionid') // 读取cookie
+      }
+      wepy.request({
+        url: 'http://192.168.0.111:8080/graduation/admin/addinfo',
+        method: 'POST',
+        header: header,
+        data: {
+          name: this.data.name,
+          number: this.data.number,
+          sex: this.data.sex,
+          major: this.data.major,
+          class: this.data.class
+          // year: this.data.year
+        },
+        success(res) {
+          wepy.showToast({
+            title: '添加成功',
+            icon: 'success',
+            duration: 2000
+          })
+          console.log(res)
+        }
+      })
+    },
+    click() {
+      wepy.navigateTo({
+        url: './audit'
+      })
+    }
   }
 }
 </script>

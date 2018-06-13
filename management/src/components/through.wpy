@@ -1,0 +1,33 @@
+<style lang="less">
+.flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #EFEFEF;
+}
+.title {
+  width: 280px;
+  font-size: 14px;
+  margin-right: 16px;
+  color: #4D4545;
+}
+</style>
+
+<template>
+  <view class="flex">
+    <text class="title">{{item.name}}</text>
+    <text>{{item.teacher_name}}</text>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class Through extends wepy.component {
+  props = {
+    item: Object
+  }
+}
+</script>

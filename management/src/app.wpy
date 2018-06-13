@@ -27,7 +27,8 @@ export default class extends wepy.app {
       'pages/student',
       'pages/techer',
       'pages/modify',
-      'pages/admin'
+      'pages/admin',
+      'pages/audit'
     ],
     window: {
       backgroundTextStyle: 'light',
