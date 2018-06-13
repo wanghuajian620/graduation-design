@@ -18,7 +18,7 @@
   <view>
     <form bindsubmit="formSubmit" bindreset="formReset">
       <view class="flex">
-        <input @tap="listener" name="input" type="text" placeholder="毕设 题目" adjust-position="true" />
+        <input bindinput="listener" name="input" type="text" placeholder="毕设 题目" adjust-position="true" />
       </view>
       <button @tap="modify" class="button" size="default" type="primary">确定</button>
     </form>
@@ -33,48 +33,42 @@ export default class Modify extends wepy.page {
     navigationBarTitleText: '修改'
   }
   data = {
-    ID: 0,
+    ID: '',
     name: ''
   }
   methods = {
     listener(e) {
       this.data.name = e.detail.value
     },
-    modify(serf) {
-      let data = {
-        id: serf.ID
-      }
-      console.log(data, 'erbi')
-      console.log(this.data.name, '出不来呀呀呀呀呀呀呀')
+    modify() {
+      let self = this
       let header = {
-        'cookie': wepy.getStorageSync('sessionid') // 读取cookie
+        'cookie': wepy.getStorageSync('sessionid')
       }
       wepy.request({
         url: 'http://192.168.0.111:8080/graduation/teacher/modify',
         method: 'POST',
         header: header,
         data: {
-          id: serf.ID,
+          id: self.ID * 1,
           name: this.data.name
         },
         success(res) {
-          // wepy.showToast({
-          //   title: '修改成功',
-          //   icon: 'success',
-          //   duration: 2000
-          // })
-          console.log(res)
+          wepy.showToast({
+            title: '修改成功,重新登录即可',
+            icon: 'success',
+            duration: 2000
+          })
         }
       })
     }
   }
   onLoad(res) {
-    let serf = this
-    serf.ID = res.id
-    serf.setData({
+    let self = this
+    self.ID = res.id
+    self.setData({
       ID: res.id
     })
-    self.methods.modify(serf) // 把onLoad()中的self传到方法中使用
   }
 }
 </script>

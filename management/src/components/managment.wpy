@@ -19,7 +19,6 @@
   <view class="flex">
     <text class="title">{{item.name}}</text>
     <text>{{item.StuName}}</text>
-    <!-- <text>{{item.StuNum}}</text> -->
   </view>
 </template>
 

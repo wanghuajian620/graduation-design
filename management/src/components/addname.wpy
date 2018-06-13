@@ -18,7 +18,6 @@
   <view class="flex">
     <text class="title">{{item.name}}</text>
     <button type="primary" formType="submit">修改</button>
-    <button type="default" formType="submit">删除</button>
   </view>
 </template>
 

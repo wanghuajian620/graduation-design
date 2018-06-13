@@ -125,6 +125,7 @@ export default class Techer extends wepy.page {
     },
     click(e) {
       const id = this.title[e.currentTarget.id].id
+      console.log(id)
       wepy.navigateTo({
         url: `./modify?id=${id}`
       })
