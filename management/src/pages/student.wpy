@@ -4,9 +4,6 @@
   height: 0px;
   color: transparent
 }
-.repeat {
-  background-color: #4D4545
-}
 </style>
 
 <template>
