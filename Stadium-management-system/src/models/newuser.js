@@ -4,6 +4,7 @@
  */
 
 import { AdminUser } from '../services/newuser';
+import { message } from 'antd';
 
 export default {
   namespace: 'newuser',
@@ -21,8 +22,12 @@ export default {
         name: object.payload.userName,
         phone: object.payload.password,
       };
+      console.log(params, 'canshu')
       const result = yield call(AdminUser, params)
-      if (result ===0 ) {}
+      console.log(result, 'result')
+      if (result.status === 0 ) {
+        message.success('添加成功');
+      }
     }
   },
 

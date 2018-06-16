@@ -7,7 +7,7 @@ import request from '../utils/request';
 
 export async function AdminUser(params) {
   return request({
-    url: '/api/admin/login',
+    url: '/api/account/new',
     method: 'POST',
     data: params,
   });
