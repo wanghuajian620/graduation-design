@@ -33,7 +33,8 @@ export default {
       }
     },
     *exit(object, { put }) {
-      yield localStorage.removeItem('myAccount')
+      // yield localStorage.removeItem('myAccount')
+      console.log('ssss')
       yield put(routerRedux.push('./'))
     }
   },

@@ -4,7 +4,8 @@
  */
 
 import React from 'react';
-import { Layout, Menu, Icon, Avatar, Dropdown } from 'antd';
+import { Layout, Menu, Icon, Avatar, Dropdown, message } from 'antd';
+import { connect } from 'dva';
 import { Switch, Link, Route } from 'dva/router';
 
 import Newuser from '../routes/Newuser';
@@ -17,17 +18,18 @@ import styles from '../layouts/BasicLayout.less';
 
 const { Header, Footer, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
-const onClick = function () {
-  this.props.dispatch({
-    type: 'user/exit'
-  })
-};
+// const onClick = function ({ key }) {
+//   message.info(`退出登录 ${key}`);
+//   this.props.dispatch({
+//     type: 'user/exit',
+//   })
+// };
 
-const menu = (
-  <Menu onClick={onClick} className={styles.menu}>
-    <Menu.Item>退出登录</Menu.Item>
-  </Menu>
-);
+// const menu = (
+//   <Menu selectable onClick={this.onClick} className={styles.menu}>
+//     <Menu.Item key="1" selectable="true">退出登录</Menu.Item>
+//   </Menu>
+// );
 
 class BasicLayout extends React.Component {
   state = {
@@ -38,7 +40,19 @@ class BasicLayout extends React.Component {
       collapsed: !this.state.collapsed,
     });
   }
+  onClick = function ({ key }) {
+    message.info(`退出登录 ${key}`);
+    this.props.dispatch({
+      type: 'user/exit',
+    })
+  };
   render() {
+    const menu = (
+      <Menu selectable onClick={this.onClick} className={styles.menu}>
+        <Menu.Item key="1" selectable="true">退出登录</Menu.Item>
+      </Menu>
+    );
+    
     // const myAccount = localStorage.getItem('myAccount');
     return (
       <div>
@@ -121,4 +135,4 @@ class BasicLayout extends React.Component {
   }
 }
 
-export default BasicLayout;
+export default connect(state => ({user: state.user}))(BasicLayout);

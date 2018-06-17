@@ -11,8 +11,9 @@ for (let i = 0; i < 100; i++) {
   data.push({
     key: i.toString(),
     name: `Edrward ${i}`,
-    age: 32,
-    address: `London Park no. ${i}`,
+    balance: 32,
+    number: `London Park no. ${i}`,
+    status: '否'
   });
 }
 const FormItem = Form.Item;
@@ -76,20 +77,26 @@ class Selectuser extends React.Component {
       {
         title: 'name',
         dataIndex: 'name',
-        width: '25%',
+        width: '20%',
         editable: true,
       },
       {
-        title: 'age',
-        dataIndex: 'age',
-        width: '15%',
+        title: 'balance',
+        dataIndex: 'balance',
+        width: '20%',
         editable: true,
       },
       {
-        title: 'address',
-        dataIndex: 'address',
-        width: '40%',
+        title: 'number',
+        dataIndex: 'number',
+        width: '20%',
         editable: true,
+      },
+      {
+        title: 'status',
+        dataIndex: 'status',
+        width: '20%',
+        editable: true
       },
       {
         title: 'operation',
