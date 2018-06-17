@@ -27,7 +27,7 @@ export default {
       const result = yield call(AdminLogin, params)
       if (result.status === 0) {
         yield localStorage.setItem('myAccount', JSON.stringify(params));
-        yield put(routerRedux.push('/admin'));
+        yield put(routerRedux.push('/admin/newuser'));
       } else {
         message.error('This is a message of error');
       }
