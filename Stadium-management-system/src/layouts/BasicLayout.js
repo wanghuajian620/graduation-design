@@ -12,24 +12,24 @@ import Newuser from '../routes/Newuser';
 import Modifystate from '../routes/Modifystate';
 import Selectuser from '../routes/Selectuser';
 import Userlist from '../routes/Userlist';
-import Topup from '../routes/Topup';
+import WrappedTopup from '../routes/Topup';
 
 import styles from '../layouts/BasicLayout.less';
 
 const { Header, Footer, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
-// const onClick = function ({ key }) {
-//   message.info(`退出登录 ${key}`);
-//   this.props.dispatch({
-//     type: 'user/exit',
-//   })
-// };
+const onClick = function ({ key }) {
+  message.info(`退出登录 ${key}`);
+  this.props.dispatch({
+    type: 'user/exit',
+  })
+};
 
-// const menu = (
-//   <Menu selectable onClick={this.onClick} className={styles.menu}>
-//     <Menu.Item key="1" selectable="true">退出登录</Menu.Item>
-//   </Menu>
-// );
+const menu = (
+  <Menu selectable onClick={onClick} className={styles.menu}>
+    <Menu.Item key="1" selectable="true">退出登录</Menu.Item>
+  </Menu>
+);
 
 class BasicLayout extends React.Component {
   state = {
@@ -40,19 +40,7 @@ class BasicLayout extends React.Component {
       collapsed: !this.state.collapsed,
     });
   }
-  onClick = function ({ key }) {
-    message.info(`退出登录 ${key}`);
-    this.props.dispatch({
-      type: 'user/exit',
-    })
-  };
   render() {
-    const menu = (
-      <Menu selectable onClick={this.onClick} className={styles.menu}>
-        <Menu.Item key="1" selectable="true">退出登录</Menu.Item>
-      </Menu>
-    );
-    
     // const myAccount = localStorage.getItem('myAccount');
     return (
       <div>
@@ -122,7 +110,7 @@ class BasicLayout extends React.Component {
                 <Route path="/admin/modifystate" component={Modifystate} />
                 <Route path="/admin/selectuser" component={Selectuser} />
                 <Route path="/admin/userlist" component={Userlist} />
-                <Route path="/admin/topup" component={Topup} />
+                <Route path="/admin/topup" component={WrappedTopup} />
               </Switch>
             </Content>
             <Footer style={{ background: '#fff' }} className={styles.footer}>
