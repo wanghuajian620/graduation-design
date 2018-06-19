@@ -9,10 +9,10 @@ import { connect } from 'dva';
 import { Switch, Link, Route } from 'dva/router';
 
 import Newuser from '../routes/Newuser';
-import Modifystate from '../routes/Modifystate';
 import Selectuser from '../routes/Selectuser';
-import Userlist from '../routes/Userlist';
 import WrappedTopup from '../routes/Topup';
+import Newsite from '../routes/Newsite';
+import Sitelist from '../routes/Sitelist';
 
 import styles from '../layouts/BasicLayout.less';
 
@@ -65,26 +65,22 @@ class BasicLayout extends React.Component {
             >
               <SubMenu key="sub1" title={<span><Icon type="team" /><span>用户管理</span></span>}>
                 <Menu.Item key="1"><Link to="/admin/newuser">新用户</Link></Menu.Item>
-                <Menu.Item key="2"><Link to="/admin/modifystate">修改状态</Link></Menu.Item>
-                <Menu.Item key="3"><Link to="/admin/selectuser">查看用户信息</Link></Menu.Item>
-                <Menu.Item key="4"><Link to="/admin/userlist">用户列表</Link></Menu.Item>
-                <Menu.Item key="5"><Link to="/admin/topup">充值</Link></Menu.Item>
+                <Menu.Item key="2"><Link to="/admin/selectuser">用户列表</Link></Menu.Item>
+                <Menu.Item key="3"><Link to="/admin/topup">充值</Link></Menu.Item>
               </SubMenu>
               <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>场地管理</span></span>}>
-                <Menu.Item key="6">新建场地</Menu.Item>
-                <Menu.Item key="7">场地信息</Menu.Item>
-                <Menu.Item key="8">场地列表</Menu.Item>
-                <Menu.Item key="9">修改状态</Menu.Item>
+                <Menu.Item key="4"><Link to="/admin/newsite">新建场地</Link></Menu.Item>
+                <Menu.Item key="5"><Link to="/admin/sitelist">场地列表</Link></Menu.Item>
               </SubMenu>
               <SubMenu key="sub3" title={<span><Icon type="setting" /><span>服务</span></span>}>
                 <SubMenu key="sub4" title="消费账单">
-                  <Menu.Item key="10">账单列表</Menu.Item>
-                  <Menu.Item key="11">用户消费列表</Menu.Item>
-                  <Menu.Item key="12">场地消费列表</Menu.Item>
-                  <Menu.Item key="13">总计</Menu.Item>
+                  <Menu.Item key="6">账单列表</Menu.Item>
+                  <Menu.Item key="7">用户消费列表</Menu.Item>
+                  <Menu.Item key="8">场地消费列表</Menu.Item>
+                  <Menu.Item key="9">总计</Menu.Item>
                 </SubMenu>
-                <Menu.Item key="14">入场</Menu.Item>
-                <Menu.Item key="15">出场</Menu.Item>
+                <Menu.Item key="10">入场</Menu.Item>
+                <Menu.Item key="11">出场</Menu.Item>
               </SubMenu>
             </Menu>
           </Sider>
@@ -107,10 +103,10 @@ class BasicLayout extends React.Component {
             <Content style={{ minHeight: '80vh', backgroundColor: '#FFFFFFF'}}>
               <Switch>
                 <Route path="/admin/newuser" component={Newuser} />
-                <Route path="/admin/modifystate" component={Modifystate} />
                 <Route path="/admin/selectuser" component={Selectuser} />
-                <Route path="/admin/userlist" component={Userlist} />
                 <Route path="/admin/topup" component={WrappedTopup} />
+                <Route path="/admin/newsite" component={Newsite} />
+                <Route path="/admin/sitelist" component={Sitelist} />
               </Switch>
             </Content>
             <Footer style={{ background: '#fff' }} className={styles.footer}>

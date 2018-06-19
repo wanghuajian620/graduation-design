@@ -25,6 +25,7 @@ export default {
         pwd: object.payload.password,
       };
       const result = yield call(AdminLogin, params)
+      console.log(result, 'result')
       if (result.status === 0) {
         yield localStorage.setItem('myAccount', JSON.stringify(params));
         yield put(routerRedux.push('/admin/newuser'));
