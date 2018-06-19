@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { Form, Input, Select, Button } from 'antd';
+import styles from './Topup.less';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -94,7 +95,7 @@ class Topup extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
-      <Form layout="inline" onSubmit={this.handleSubmit}>
+      <Form className={styles.buttonflex} layout="inline" onSubmit={this.handleSubmit}>
         <FormItem label="Price">
           {getFieldDecorator('price', {
             initialValue: { number: 0, currency: 'rmb' },
